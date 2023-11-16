@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pembayaran QRIS</title>
+</head>
+
+<body>
+    <header>
+        <h1>Proses Pembayaran - QRIS</h1>
+        <a href="apkpembayaran.html" class="back-button">Kembali</a>
+    </header>
+    <div class="container">
+        <h2>Detail Pesanan</h2>
+        <p>Produk yang Anda pesan:</p>
+        <ul id="ordered-items">
+        </ul>
+        <p>Total Harga: <span id="total-price">Rp 0</span></p>
+        <h2>Catatan:</h2>
+        <textarea id="notes" rows="4" cols="50" readonly></textarea>
+        <h2>Silahkan Scan QRIS Untuk Melakukan Pembayaran</h2>
+        <P>Tunjukan Ke Kasir Sebelum Melakukan Pembayaran</P>
+        <img src="qrisjapeasli.jpg" width="500" alt="QRIS Code">
+        <p id="countdown"></p>
+        <button onclick="goToReviews()">Beri Ulasan</button>
+    </div>
+
+    <script>
+        const orderedItems = document.getElementById('ordered-items');
+        const totalHarga = document.getElementById('total-price');
+        const notesTextarea = document.getElementById('notes');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemsParam = urlParams.get('items');
+        const total = urlParams.get('total');
+        const notes = urlParams.get('notes');
+        if (itemsParam && total) {
+            const selectedItems = itemsParam.split(',');
+            selectedItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                orderedItems.appendChild(listItem);
+            });
+
+            totalHarga.textContent = `Rp ${total}`;
+        }
+
+        if (notes) {
+            notesTextarea.value = notes;
+        }
+
+        let countdownTime = 5 * 60;
+        const countdownElement = document.getElementById('countdown');
+        function updateCountdown() {
+            const minutes = Math.floor(countdownTime / 60);
+            const seconds = countdownTime % 60;
+            countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            countdownTime--;
+            if (countdownTime < 0) {
+                window.location.href = 'apkhome.html';
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function goToReviews() {
+            window.location.href = 'apkulasan.html';
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(Download\ premium\ image\ of\ White\ wood\ textured\ mobile\ wallpaper\ by\ Nunny\ about\ instagram\ story\ plain\ background\,\ texture\ background\,\ story\ template\,\ instagram\ story\ plain\ background\ white\,\ and\ free\ iphone\ 2252223.jpeg);
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            width: 2000px;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .container h2 {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        #countdown {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+        }
+
+        #notes {
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #003cf1f1;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+</body>
+
+</html>

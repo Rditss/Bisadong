@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profil Sutanto</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Profile</h1>
+    </div>
+    <a href="apk.html" class="back-button">Kembali</a>
+
+    <div class="container">
+        <h2>Informasi Pengguna</h2>
+        <a href="apk.html" class="back-button">Kembali</a>
+
+        <div class="profile">
+            <img src="muka.jpeg">
+            <h1 id="nama">Sutanto</h1>
+
+            <p>Email: <span id="email">sutanto@example.com</span></p>
+            <p>Telepon: <span id="telepon">(123) 456-7890</span></p>
+
+            <button id="edit-button" onclick="toggleEditForm()">Ubah Profil</button>
+
+            <form id="profilForm" style="display: none;">
+                <h2>Ubah Profil</h2>
+                <label for="newName">Nama Baru:</label>
+                <input type="text" id="newName" name="newName"><br><br>
+
+                <label for="newEmail">Email Baru:</label>
+                <input type="text" id="newEmail" name="newEmail"><br><br>
+
+                <label for="newPhone">Telepon Baru:</label>
+                <input type="text" id="newPhone" name="newPhone"><br><br>
+
+                <button type="button" onclick="updateProfile()">Update Profil</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        if (localStorage.getItem('profileData')) {
+            const savedData = JSON.parse(localStorage.getItem('profileData'));
+            document.getElementById('nama').textContent = savedData.name;
+            document.getElementById('email').textContent = savedData.email;
+            document.getElementById('telepon').textContent = savedData.telepon;
+        }
+
+        function toggleEditForm() {
+            const editForm = document.getElementById('profilForm');
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function updateProfile() {
+            const newName = document.getElementById('newName').value;
+            const newEmail = document.getElementById('newEmail').value;
+            const newPhone = document.getElementById('newPhone').value;
+
+            if (newName) {
+                document.getElementById('nama').textContent = newName;
+            }
+            if (newEmail) {
+                document.getElementById('email').textContent = newEmail;
+            }
+            if (newPhone) {
+                document.getElementById('telepon').textContent = newPhone;
+            }
+            toggleEditForm();
+
+            const profileData = {
+                name: newName || document.getElementById('nama').textContent,
+                email: newEmail || document.getElementById('email').textContent,
+                telepon: newPhone || document.getElementById('telepon').textContent
+            };
+            localStorage.setItem('profileData', JSON.stringify(profileData));
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(Download\ premium\ image\ of\ White\ wood\ textured\ mobile\ wallpaper\ by\ Nunny\ about\ instagram\ story\ plain\ background\,\ texture\ background\,\ story\ template\,\ instagram\ story\ plain\ background\ white\,\ and\ free\ iphone\ 2252223.jpeg);
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+    </style>
+</body>
+
+</html>

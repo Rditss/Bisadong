@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Kode</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(Premium\ Photo\ _\ Simple\ white\ background\ with\ smooth\ lines\ in\ light\ colors.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Verifikasi Kode</h1>
+        <p>Masukkan kode verifikasi yang Anda terima melalui email:</p>
+        <form action="validasi" method="post">
+            <input type="text" id="code" name="code" placeholder="Kode Verifikasi" required>
+            <button type="submit" formaction="apkverifdone.html">Verifikasi</button>
+        </form>
+    </div>
+</body>
+
+</html>

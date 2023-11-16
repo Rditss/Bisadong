@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulasan</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Ulasan Japemethe</h1>
+    </header>
+
+    <a href="#" onclick="goToPreviousPage()" class="back-button">Kembali</a>
+
+    <div class="review-container" id="review-container">
+
+    </div>
+
+    <div class="add-review-container">
+        <h2>Beri Ulasan</h2>
+        <form id="review-form">
+            <label for="username">Nama Pengguna:</label>
+            <input type="text" id="username" required>
+            <label for="rating">Bintang:</label>
+            <select id="rating" required>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+            <label for="comment">Ulasan:</label>
+            <textarea id="comment" rows="4" required></textarea>
+            <button type="button" onclick="submitReview()">Submit Ulasan</button>
+        </form>
+    </div>
+
+    <script>
+        function submitReview() {
+            const username = document.getElementById('username').value;
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+
+            const reviewContainer = document.getElementById('review-container');
+
+            const reviewItem = document.createElement('div');
+            reviewItem.classList.add('review-item');
+            reviewItem.innerHTML = `
+                <h2>${username}</h2>
+                <p>Ulasan: ${comment}</p>
+                <p>Rating: ${'⭐'.repeat(rating)}</p>
+                <button onclick="deleteReview(this.parentNode)">Hapus</button>
+            `;
+
+            reviewContainer.appendChild(reviewItem);
+
+            saveReviewToLocalStorage(username, rating, comment);
+        }
+
+        function saveReviewToLocalStorage(username, rating, comment) {
+            let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            const review = { username, rating, comment };
+            reviews.push(review);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+        }
+
+        window.addEventListener('load', function () {
+            const reviewContainer = document.getElementById('review-container');
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+            reviews.forEach(review => {
+                const reviewItem = document.createElement('div');
+                reviewItem.classList.add('review-item');
+                reviewItem.innerHTML = `
+                    <h2>${review.username}</h2>
+                    <p>Ulasan: ${review.comment}</p>
+                    <p>Rating: ${'⭐'.repeat(review.rating)}</p>
+                    <button onclick="deleteReview(this.parentNode)">Hapus</button>
+                `;
+                reviewContainer.appendChild(reviewItem);
+            });
+        });
+
+        function deleteReview(reviewItem) {
+            const reviewContainer = document.getElementById('review-container');
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+            const index = Array.from(reviewContainer.children).indexOf(reviewItem);
+
+            reviews.splice(index, 1);
+
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+
+            reviewContainer.removeChild(reviewItem);
+        }
+
+        function goToPreviousPage() {
+            window.history.back();
+        }
+    </script>
+
+    <style>
+          body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: -40px;
+        }
+
+
+        .review-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 60px;
+        }
+
+        .review-item {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+
+        .review-item:hover {
+            transform: scale(1.05);
+        }
+
+        .add-review-container {
+            margin-top: 20px;
+        }
+
+        #review-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        textarea {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            background-color: #003cf1f1;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 35px;
+            left: 50px;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</body>
+
+</html>
