@@ -102,12 +102,14 @@
         }
     </script>
 
-    <style>
-          body {
+       <style>
+        body {
             font-family: 'Roboto', sans-serif;
             background-color: #f0f0f0;
             padding: 20px;
             color: #333;
+            margin: 0;
+            box-sizing: border-box;
         }
 
         header {
@@ -115,15 +117,29 @@
             color: #fff;
             text-align: center;
             padding: 20px;
-            margin: -40px;
         }
 
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: #222;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
 
         .review-container {
             background-color: #fff;
             border: 1px solid #ddd;
             padding: 20px;
-            margin: 60px;
+            margin: 20px;
         }
 
         .review-item {
@@ -171,21 +187,6 @@
 
         button:hover {
             background-color: #333;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 35px;
-            left: 50px;
-            text-decoration: none;
-            color: #fff;
-            padding: 10px 20px;
-            background-color: #222;
-            border-radius: 5px;
-        }
-
-        .back-button:hover {
-            background-color: #444;
         }
 
         .delete-button {
