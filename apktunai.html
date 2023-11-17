@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pembayaran QRIS</title>
+    <title>Pembayaran Tunai</title>
 </head>
 
 <body>
     <header>
         <h1>Proses Pembayaran - Tunai</h1>
-        <a href="apkpembayaran.html" class="back-button">Kembali</a>
+        <a href="apkpembayaran.html" class="back-button">&#9665; Kembali</a>
     </header>
     <div class="container">
         <h2>Detail Pesanan</h2>
         <p>Produk yang Anda pesan:</p>
-        <ul id="ordered-items">
-        </ul>
+        <ul id="ordered-items"></ul>
         <p>Total Harga: <span id="total-price">Rp 0</span></p>
         <h2>Catatan:</h2>
         <textarea id="notes" rows="4" cols="50" readonly></textarea>
@@ -46,7 +45,6 @@
         }
 
         if (notes) {
-
             notesTextarea.value = notes;
         }
 
@@ -63,7 +61,7 @@
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
-         
+
         function goToReviews() {
             window.location.href = 'apkulasan.html';
         }
@@ -87,7 +85,7 @@
             color: #fff;
             text-align: center;
             padding: 20px;
-            width: 2000px;
+            width: 100%; 
         }
 
         .container {
@@ -96,6 +94,8 @@
             padding: 20px;
             background-color: #fff;
             border-radius: 5px;
+            width: 100%; 
+            box-sizing: border-box; 
         }
 
         .container h2 {
@@ -104,8 +104,8 @@
 
         .back-button {
             position: absolute;
-            top: 40px;
-            left: 30px;
+            top: 20px;
+            left: 20px;
             text-decoration: none;
             color: #fff;
             padding: 10px 20px;
@@ -119,15 +119,16 @@
 
         #countdown {
             width: 100%;
-            margin: 0;
-            padding: 0;
+            margin-top: 10px;
             font-size: 24px;
         }
 
         #notes {
             margin-top: 10px;
+            width: 100%; 
+            box-sizing: border-box; 
         }
-        
+
         button {
             margin-top: 20px;
             background-color: #003cf1f1;
