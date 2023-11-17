@@ -76,7 +76,7 @@
         });
     </script>
 
-    <style>
+        <style>
         body {
             font-family: Arial, sans-serif;
             background-image: url(Download\ premium\ image\ of\ White\ wood\ textured\ mobile\ wallpaper\ by\ Nunny\ about\ instagram\ story\ plain\ background\,\ texture\ background\,\ story\ template\,\ instagram\ story\ plain\ background\ white\,\ and\ free\ iphone\ 2252223.jpeg);
@@ -90,6 +90,7 @@
             color: #fff;
             text-align: center;
             padding: 20px;
+            position: relative; 
         }
 
         .container {
@@ -122,8 +123,8 @@
 
         .back-button {
             position: absolute;
-            top: 40px;
-            left: 30px;
+            top: 20px;
+            left: 20px;
             text-decoration: none;
             color: #fff;
             padding: 10px 20px;
@@ -141,8 +142,16 @@
         }
 
         #notes {
-            width: 50%;
+            width: 100%; 
             padding: 10px;
+            box-sizing: border-box; 
+        }
+
+        @media (min-width: 600px) {
+     
+            #notes {
+                width: 50%;
+            }
         }
     </style>
 </body>
