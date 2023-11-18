@@ -9,93 +9,110 @@
 
 <body>
     <div class="container">
-        <form>
+        <form onsubmit="login(event)">
             <h1>Login</h1>
-            <input type="text" placeholder="Alamat email" required>
-            <input type="password" placeholder="Kata sandi" required>
+            <input type="text" id="username" placeholder="Alamat email" required>
+            <input type="password" id="password" placeholder="Kata sandi" required>
             <div class="checkbox">
                 <input type="checkbox" id="rememberMe">
                 <label for="rememberMe">Ingat Saya?</label>
             </div>
             <br>
-            
+
             <div class="links">
                 <a href="apkdaftar.html">Belum Memiliki Akun?</a>
                 <a href="apkresetpw.html">Lupa Password?</a>
             </div>
-            <button type="submit" formaction="apkhome.html">Login</button>
+            <button type="submit">Login</button>
         </form>
     </div>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url(Premium\ Photo\ _\ Simple\ white\ background\ with\ smooth\ lines\ in\ light\ colors.jpeg);
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
 
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            width: 400px;
-            border-radius: 5px;
-            text-align: center;
-        }
+    <script>
+        function login(event) {
+            event.preventDefault();
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        h1 {
-            margin: 0;
+            if (username === 'admjape' && password === 'adm123') {
+                window.location.href = 'apkadmin.html';
+            } else {
+                window.location.href = 'apkhome.html';
+            }
         }
+    </script>
 
-        input[type="text"],
-        input[type="password"] {
-            margin: 10px 0;
-            padding: 10px;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url(Premium\ Photo\ _\ Simple\ white\ background\ with\ smooth\ lines\ in\ light\ colors.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        .checkbox {
-            display: flex;
-            align-items: center;
-        }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        width: 400px;
+        border-radius: 5px;
+        text-align: center;
+    }
 
-        input[type="checkbox"] {
-            margin-right: 5px;
-        }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    h1 {
+        margin: 0;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    input[type="text"],
+    input[type="password"] {
+        margin: 10px 0;
+        padding: 10px;
+    }
 
-        .links {
-            display: flex;
-            justify-content: space-between;
-        }
+    .checkbox {
+        display: flex;
+        align-items: center;
+    }
 
-        a {
-            text-decoration: none;
-            color: #0061ca;
-        }
-    </style>
+    input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .links {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0061ca;
+    }
+</style>
+
 </body>
 
 </html>
