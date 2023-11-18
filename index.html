@@ -26,20 +26,6 @@
             <button type="submit" formaction="apkhome.html">Login</button>
         </form>
     </div>
-      <script>
-        function login(event) {
-            event.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (username === 'Admin123' && password === '1234') {
-                window.location.href = 'apkadmin.html';
-            } else {
-                alert('Username atau password salah. Coba lagi.');
-            }
-        }
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
