@@ -9,55 +9,59 @@
 
     <section>
         <center><h1>Admin Panel</h1></center>
-        <a href="apk.html"><button>Edit Menu</button></a>
+        <button type="button" onclick="window.location.href='apk.html'">Edit Menu</button>
         <button>Edit Promo</button>
         <button>Lihat Ulasan</button>
+        <button>Kelola Reservasi</button> 
+        <button>Statistik Penjualan</button> 
     </section>
+
 </body>
 
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
+   body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
-    header {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-    }
+section {
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    section {
-        padding: 20px;
-        border: 2px solid #333;
-        border-radius: 10px;
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+h1 {
+    color: #333;
+}
 
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        margin-bottom: 10px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box; 
+}
 
-    button:hover {
-        background-color: #2980b9;
-    }
+button:hover {
+    background-color: #2980b9;
+}
+
 </style>
 
 </html>
