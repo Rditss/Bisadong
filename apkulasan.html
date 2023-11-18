@@ -106,7 +106,6 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f0f0f0;
-            padding: 20px;
             color: #333;
             margin: 0;
             box-sizing: border-box;
@@ -202,6 +201,20 @@
 
         .delete-button:hover {
             background-color: darkred;
+        }
+
+        @media screen and (max-width: 600px) {
+            .add-review-container,
+            .review-container,
+            .review-item {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .back-button {
+                top: 10px;
+                left: 10px;
+            }
         }
     </style>
 </body>
