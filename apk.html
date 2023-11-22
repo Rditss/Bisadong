@@ -30,7 +30,14 @@
     <div class="menu-item">
       <h2>Nasi</h2>
       <p>Harga: Rp 3,000</p>
+      <img src="Screenshot 2023-11-22 193630.png" alt="Nasi Image" onclick="showImage('Screenshot 2023-11-22 193630.png')">
       <button onclick="addToCart('Nasi', 3000)">Tambah ke Pesanan</button>
+    </div>
+    <div class="menu-item">
+      <h2>Katanya Empek Empek</h2>
+      <p>Harga: Rp 7,000</p>
+      <img src="Screenshot 2023-11-22 193529.png" alt="Empek Image" onclick="showImage('Screenshot 2023-11-22 193529.png')">
+      <button onclick="addToCart('Katanya Empek Empek', 7000)">Tambah ke Pesanan</button>
     </div>
     <div class="menu-item">
       <h2>Nasi Ayam Kosek</h2>
@@ -65,12 +72,19 @@
     <div class="menu-item">
       <h2>Nasi Goreng Japemethe</h2>
       <p>Harga: Rp 12,000</p>
+      <img src="Screenshot 2023-11-22 193521.png" alt="nasi goreng Image" onclick="showImage('Screenshot 2023-11-22 193529.png')">
       <button onclick="addToCart('Nasi Goreng Japemethe', 12000)">Tambah ke Pesanan</button>
     </div>
     <div class="menu-item">
       <h2>Nasi Magelangan</h2>
       <p>Harga: Rp 12,000</p>
       <button onclick="addToCart('Nasi Magelangan', 12000)">Tambah ke Pesanan</button>
+    </div>
+    <div class="menu-item">
+      <h2>Indomie Biasa</h2>
+      <p>Harga: Rp 6,000</p>
+      <img src="Screenshot 2023-11-22 193449.png" alt="nasi goreng Image" onclick="showImage('Screenshot 2023-11-22 193449.png')">
+      <button onclick="addToCart('Indomie Biasa', 6000)">Tambah ke Pesanan</button>
     </div>
     <div class="menu-item">
       <h2>Indomie Polos+Sayur+Cabe</h2>
@@ -86,6 +100,12 @@
       <h2>Indomie Nyemek Japemethe</h2>
       <p>Harga: Rp 12,000</p>
       <button onclick="addToCart('Indomie Nyemek Japemethe', 12000)">Tambah ke Pesanan</button>
+    </div>
+    <div class="menu-item">
+      <h2>Pisang Goreng</h2>
+      <p>Harga: Rp 10,000</p>
+      <img src="Screenshot 2023-11-22 193514.png" alt="Pisang Image" onclick="showImage('Screenshot 2023-11-22 193514.png')">
+      <button onclick="addToCart('Pisang Goremg', 10000)">Tambah ke Pesanan</button>
     </div>
   </div>
   <div class="minuman">
@@ -180,6 +200,9 @@
       <button onclick="addToCart('Wedang Rempah', 8000)">Tambah ke Pesanan</button>
     </div>
   </div>
+  <div id="overlay" onclick="hideImage()">
+    <img id="largeImage">
+</div>
   <div class="order-container">
     <h2>Pesanan Anda</h2>
     <ul id="cart-list">
@@ -190,40 +213,38 @@
     </form>
   </div>
   <script>
-    const cart = [];
-    const menuItems = document.querySelectorAll('.menu-item');
+   const cart = [];
+const menuItems = document.querySelectorAll('.menu-item');
+const enlargeImages = document.querySelectorAll('.enlarge-image');
 
-    function searchItems() {
-      const searchInput = document.getElementById('search-input').value.toLowerCase();
-      menuItems.forEach(item => {
+function searchItems() {
+    const searchInput = document.getElementById('search-input').value.toLowerCase();
+    menuItems.forEach(item => {
         const itemName = item.querySelector('h2').textContent.toLowerCase();
         const itemPrice = item.querySelector('p').textContent.toLowerCase();
         if (itemName.includes(searchInput) || itemPrice.includes(searchInput)) {
-          item.style.display = 'block';
+            item.style.display = 'block';
         } else {
-          item.style.display = 'none';
+            item.style.display = 'none';
         }
-      });
-    }
+    });
+}
 
-    document.getElementById('search-button').addEventListener('click', searchItems);
-    document.getElementById('search-input').addEventListener('input', searchItems);
-
-    function resetSearch() {
-      document.getElementById('search-input').value = '';
-      menuItems.forEach(item => {
+function resetSearch() {
+    document.getElementById('search-input').value = '';
+    menuItems.forEach(item => {
         item.style.display = 'block';
-      });
-    }
+    });
+}
 
-    function updateCart() {
-      const cartList = document.getElementById('cart-list');
-      const totalPrice = document.getElementById('total-price');
-      let totalPriceValue = 0;
+function updateCart() {
+    const cartList = document.getElementById('cart-list');
+    const totalPrice = document.getElementById('total-price');
+    let totalPriceValue = 0;
 
-      cartList.innerHTML = '';
+    cartList.innerHTML = '';
 
-      cart.forEach((item, index) => {
+    cart.forEach((item, index) => {
         const listItem = document.createElement('li');
         listItem.textContent = `${item.name} - Rp ${item.price}`;
 
@@ -234,240 +255,289 @@
         removeButton.className = 'remove-button';
 
         listItem.appendChild(removeButton);
-
         cartList.appendChild(listItem);
         totalPriceValue += item.price;
-      });
+    });
 
-      totalPrice.textContent = `Rp ${totalPriceValue}`;
-    }
+    totalPrice.textContent = `Rp ${totalPriceValue}`;
+}
 
-    function showNotification(message, notificationClass) {
-      const notification = document.createElement('div');
-      notification.textContent = message;
-      notification.className = `notification ${notificationClass}`;
-      document.body.appendChild(notification);
+function showNotification(message, notificationClass) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.className = `notification ${notificationClass}`;
+    document.body.appendChild(notification);
 
-      notification.style.opacity = '0';
-      notification.offsetHeight;
+    notification.style.opacity = '0';
+    notification.offsetHeight;
 
-      notification.style.opacity = '1';
+    notification.style.opacity = '1';
 
-      setTimeout(() => {
+    setTimeout(() => {
         notification.style.opacity = '0';
 
         setTimeout(() => {
-          document.body.removeChild(notification);
+            document.body.removeChild(notification);
         }, 1000);
-      }, 3000);
-    }
+    }, 3000);
+}
 
-    function addToCart(itemName, itemPrice) {
-      cart.push({ name: itemName, price: itemPrice });
-      updateCart();
-      showNotification(`${itemName} ditambahkan ke pesanan`, 'notification-add');
-    }
+function addToCart(itemName, itemPrice) {
+    cart.push({ name: itemName, price: itemPrice });
+    updateCart();
+    showNotification(`${itemName} ditambahkan ke pesanan`, 'notification-add');
+}
 
-    function removeFromCart(index) {
-      const removedItem = cart.splice(index, 1)[0];
-      updateCart();
-      showNotification(`${removedItem.name} dihapus dari pesanan`, 'notification-remove');
-    }
+function removeFromCart(index) {
+    const removedItem = cart.splice(index, 1)[0];
+    updateCart();
+    showNotification(`${removedItem.name} dihapus dari pesanan`, 'notification-remove');
+}
 
-    document.getElementById('payment-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const items = cart.map(item => `${item.name} - Rp ${item.price}`);
-      const total = cart.reduce((acc, item) => acc + item.price, 0);
-      const itemsParam = encodeURIComponent(items.join(','));
-      window.location.href = `apkpembayaran.html?items=${itemsParam}&total=${total}`;
+function initializeImageEnlargement() {
+    enlargeImages.forEach(image => {
+        image.addEventListener('click', () => {
+            alert('Gambar diperbesar!');
+        });
     });
+}
+
+function initializePaymentForm() {
+    document.getElementById('payment-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const items = cart.map(item => `${item.name} - Rp ${item.price}`);
+        const total = cart.reduce((acc, item) => acc + item.price, 0);
+        const itemsParam = encodeURIComponent(items.join(','));
+        window.location.href = `apkpembayaran.html?items=${itemsParam}&total=${total}`;
+    });
+}
+
+function showImage(imagePath) {
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+
+    var largeImage = document.getElementById('largeImage');
+    largeImage.src = imagePath;
+}
+
+function hideImage() {
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+}
+
+initializeImageEnlargement();
+initializePaymentForm();
+
   </script>
 
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-       color: #333;
-      background-image: url(Download\ premium\ image\ of\ White\ wood\ textured\ mobile\ wallpaper\ by\ Nunny\ about\ instagram\ story\ plain\ background\,\ texture\ background\,\ story\ template\,\ instagram\ story\ plain\ background\ white\,\ and\ free\ iphone\ 2252223.jpeg);
-      background-size: cover;
-      background-repeat: no-repeat;
-      padding: 0;
-      color: #333;
-    }
+           body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-image: url(Download\ premium\ image\ of\ White\ wood\ textured\ mobile\ wallpaper\ by\ Nunny\ about\ instagram\ story\ plain\ background\,\ texture\ background\,\ story\ template\,\ instagram\ story\ plain\ background\ white\,\ and\ free\ iphone\ 2252223.jpeg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 0;
+            color: #333;
+        }
 
-    header {
-      background-color: #222;
-      color: #fff;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      text-align: center;
-      font-size: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: -10px;
-      flex-wrap: wrap;
-    }
+        header {
+            background-color: #222;
+            color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: -10px;
+            flex-wrap: wrap;
+        }
 
-    .profile {
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
-      color: #4CAF50;
-    }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            color: #4CAF50;
+            border-radius: 50%;
+        }
 
-    .profile img {
-      width: 30px;
-      height: 30px;
-    }
+        .profile img {
+            width: 30px;
+            height: 30px;
+        }
 
-    .back-button {
-      color: #fff;
-      text-decoration: none;
-      padding: 9px 15px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
+        .back-button {
+            color: #fff;
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-    .back-button:hover {
-      background-color: #333;
-    }
+        .back-button:hover {
+            background-color: #333;
+        }
 
-    .search {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px;
-    }
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
 
-    .search input {
-      padding: 10px;
-      width: 60%;
-      border-radius: 5px;
-      border: 1px solid #4CAF50;
-    }
+        .search input {
+            padding: 10px;
+            width: 60%;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
 
-    .search button {
-      background-color: #003cf1;
-      color: #fff;
-      border-radius: 5px;
-      width: 50px;
-      height: 35px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        .search button {
+            background-color: #003cf1;
+            color: #fff;
+            border-radius: 5px;
+            width: 50px;
+            height: 35px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    .search button:hover {
-      background-color: #333;
-    }
+        .search button:hover {
+            background-color: #333;
+        }
 
-    .makanan,
-    .minuman {
-      border: 1px solid #ddd;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 10px;
-    }
+        .makanan,
+        .minuman {
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px;
+        }
 
-    .menu-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 10px;
-    }
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px;
+        }
 
-    .menu-item {
-      border: 1px solid #d0c5c5;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin: 20px;
-      text-align: center;
-      width: 300px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: transform 0.5s;
-    }
+        .menu-item {
+            border: 1px solid #d0c5c5;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+        .menu-item img {
+    max-width: 100%; 
+    height: auto;
+    margin-bottom: 10px;
+}
+#overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
 
-    .menu-item button {
-      background-color: #4CAF50;
-      color: #fff;
-      transition: background-color 0.3s;
-      border: white;
-      padding: 5px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+        #overlay img {
+            display: block;
+            margin: auto;
+            margin-top: 10%;
+            max-width: 80%;
+            max-height: 80%;
+        }
 
-    .menu-item button:hover {
-      background-color: #387e3c;
-    }
+        .menu-item button {
+            background-color: #4CAF50;
+            color: #fff;
+            transition: background-color 0.3s;
+            border: white;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
-    .menu-item:hover {
-      transform: scale(1.05);
-    }
+        .menu-item button:hover {
+            background-color: #387e3c;
+        }
 
-    .order-container {
-      border: 1px solid #42e3ff;
-      background-color: #6df44f;
-      color: #333;
-      padding: 20px;
-      margin: 20px;
-    }
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
 
-    .remove-button {
-      color: white;
-      background-color: red;
-      margin-left: 10px;
-      transition: background-color 0.3s;
-    }
+        .order-container {
+            border: 1px solid #42e3ff;
+            background-color: #6df44f;
+            color: #333;
+            padding: 20px;
+            margin: 20px;
+        }
 
-    .remove-button:hover {
-      background-color: darkred;
-    }
+        .remove-button {
+            color: white;
+            background-color: red;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
 
-    .notification {
-      text-align: center;
-      padding: 10px;
-      margin: 10px;
-      opacity: 0;
-      animation: fadeInOut 2s ease-in-out forwards;
-    }
+        .remove-button:hover {
+            background-color: darkred;
+        }
 
-    .notification-add {
-      background-color: #4CAF50;
-      color: white;
-      animation: ease-out;
-    }
+        .notification {
+            text-align: center;
+            padding: 10px;
+            margin: 10px;
+            opacity: 0;
+            animation: fadeInOut 2s ease-in-out forwards;
+        }
 
-    .notification-remove {
-      background-color: #FF4444;
-      color: white;
-      animation: none;
-    }
+        .notification-add {
+            background-color: #4CAF50;
+            color: white;
+            animation: ease-out;
+        }
 
-    @keyframes fadeInOut {
+        .notification-remove {
+            background-color: #FF4444;
+            color: white;
+            animation: none;
+        }
 
-      0%,
-      100% {
-        opacity: 1;
-      }
+        @keyframes fadeInOut {
 
-      50% {
-        opacity: 1;
-      }
-    }
+            0%,
+            100% {
+                opacity: 1;
+            }
 
-    @media only screen and (max-width: 600px) {
-      .menu-item {
-        width: 100%;
-        margin: 10px 0;
-      }
+            50% {
+                opacity: 1;
+            }
+        }
 
-      .order-container {
-        margin: 10px;
-      }
-    }
+        @media only screen and (max-width: 600px) {
+            .menu-item {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .order-container {
+                margin: 10px;
+            }
+        }
   </style>
 </body>
 
