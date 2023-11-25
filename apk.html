@@ -213,122 +213,123 @@
     </form>
   </div>
   <script>
-const cart = [];
-const menuItems = document.querySelectorAll('.menu-item');
-const enlargeImages = document.querySelectorAll('.enlarge-image');
+    const cart = [];
+    const menuItems = document.querySelectorAll('.menu-item');
+    const searchInput = document.getElementById('search-input');
 
-function searchItems() {
-    const searchInput = document.getElementById('search-input').value.toLowerCase();
-    menuItems.forEach(item => {
-        const itemName = item.querySelector('h2').textContent.toLowerCase();
-        const itemPrice = item.querySelector('p').textContent.toLowerCase();
-        if (itemName.includes(searchInput) || itemPrice.includes(searchInput)) {
+    function filterItems() {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        menuItems.forEach(item => {
+            const itemName = item.querySelector('h2').textContent.toLowerCase();
+            const shouldDisplay = itemName.includes(searchTerm);
+            item.style.display = shouldDisplay ? 'block' : 'none';
+        });
+    }
+
+    function resetSearch() {
+        searchInput.value = '';
+        menuItems.forEach(item => {
             item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
+        });
+    }
 
-function resetSearch() {
-    document.getElementById('search-input').value = '';
-    menuItems.forEach(item => {
-        item.style.display = 'block';
-    });
-}
 
-function updateCart() {
-    const cartList = document.getElementById('cart-list');
-    const totalPrice = document.getElementById('total-price');
-    let totalPriceValue = 0;
+    function updateCart() {
+        const cartList = document.getElementById('cart-list');
+        const totalPrice = document.getElementById('total-price');
+        let totalPriceValue = 0;
 
-    cartList.innerHTML = '';
+        cartList.innerHTML = '';
 
-    cart.forEach((item, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - Rp ${item.price}`;
+        cart.forEach((item, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.name} - Rp ${item.price}`;
 
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Hapus';
-        removeButton.addEventListener('click', () => removeFromCart(index));
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Hapus';
+            removeButton.addEventListener('click', () => removeFromCart(index));
 
-        removeButton.className = 'remove-button';
+            removeButton.className = 'remove-button';
 
-        listItem.appendChild(removeButton);
-        cartList.appendChild(listItem);
-        totalPriceValue += item.price;
-    });
+            listItem.appendChild(removeButton);
+            cartList.appendChild(listItem);
+            totalPriceValue += item.price;
+        });
 
-    totalPrice.textContent = `Rp ${totalPriceValue}`;
-}
+        totalPrice.textContent = `Rp ${totalPriceValue}`;
+    }
 
-function showNotification(message, notificationClass) {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.className = `notification ${notificationClass}`;
-    document.body.appendChild(notification);
+    function showNotification(message, notificationClass) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.className = `notification ${notificationClass}`;
+        document.body.appendChild(notification);
 
-    notification.style.opacity = '0';
-    notification.offsetHeight;
-
-    notification.style.opacity = '1';
-
-    setTimeout(() => {
         notification.style.opacity = '0';
+        notification.offsetHeight;
+
+        notification.style.opacity = '1';
 
         setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 1000);
-    }, 3000);
-}
+            notification.style.opacity = '0';
 
-function addToCart(itemName, itemPrice) {
-    cart.push({ name: itemName, price: itemPrice });
-    updateCart();
-    showNotification(`${itemName} ditambahkan ke pesanan`, 'notification-add');
-}
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 1000);
+        }, 3000);
+    }
 
-function removeFromCart(index) {
-    const removedItem = cart.splice(index, 1)[0];
-    updateCart();
-    showNotification(`${removedItem.name} dihapus dari pesanan`, 'notification-remove');
-}
+    function addToCart(itemName, itemPrice) {
+        cart.push({ name: itemName, price: itemPrice });
+        updateCart();
+        showNotification(`${itemName} ditambahkan ke pesanan`, 'notification-add');
+    }
 
-function initializeImageEnlargement() {
-    enlargeImages.forEach(image => {
-        image.addEventListener('click', () => {
-            alert('Gambar diperbesar!');
+    function removeFromCart(index) {
+        const removedItem = cart.splice(index, 1)[0];
+        updateCart();
+        showNotification(`${removedItem.name} dihapus dari pesanan`, 'notification-remove');
+    }
+
+    function initializeImageEnlargement() {
+        const enlargeImages = document.querySelectorAll('.enlarge-image');
+        enlargeImages.forEach(image => {
+            image.addEventListener('click', () => {
+                alert('Gambar diperbesar!');
+            });
         });
-    });
-}
+    }
 
-function initializePaymentForm() {
-    document.getElementById('payment-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const items = cart.map(item => `${item.name} - Rp ${item.price}`);
-        const total = cart.reduce((acc, item) => acc + item.price, 0);
-        const itemsParam = encodeURIComponent(items.join(','));
-        window.location.href = `apkpembayaran.html?items=${itemsParam}&total=${total}`;
-    });
-}
+    function initializePaymentForm() {
+        document.getElementById('payment-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const items = cart.map(item => `${item.name} - Rp ${item.price}`);
+            const total = cart.reduce((acc, item) => acc + item.price, 0);
+            const itemsParam = encodeURIComponent(items.join(','));
+            window.location.href = `apkpembayaran.html?items=${itemsParam}&total=${total}`;
+        });
+    }
 
-function showImage(imagePath) {
-    var overlay = document.getElementById('overlay');
-    overlay.style.display = 'block';
+    function showImage(imagePath) {
+        var overlay = document.getElementById('overlay');
+        overlay.style.display = 'block';
 
-    var largeImage = document.getElementById('largeImage');
-    largeImage.src = imagePath;
-}
+        var largeImage = document.getElementById('largeImage');
+        largeImage.src = imagePath;
+    }
 
-function hideImage() {
-    var overlay = document.getElementById('overlay');
-    overlay.style.display = 'none';
-}
+    function hideImage() {
+        var overlay = document.getElementById('overlay');
+        overlay.style.display = 'none';
+    }
 
-initializeImageEnlargement();
-initializePaymentForm();
+    initializeImageEnlargement();
+    initializePaymentForm();
 
-  </script>
+     searchInput.addEventListener('input', filterItems);
+</script>
+
 
   <style>
            body {
