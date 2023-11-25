@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,12 +15,41 @@
     <nav style="background-color: #444; padding: 10px; text-align: center;">
         <a href="apk.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Menu</a>
         <a href="apktentangkami.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Tentang Kami</a>
+        <a href="apkreservasi.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Reservasi</a>
         <a href="apkkontak.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Kontak</a>
+        
     </nav>
 
     <div class="container">
-        <h2 style="font-size: 24px;">Selamat datang di Japemethe, Selamat makan!!</h2>
+        <div id="welcomeMessage" style="background-color: #f4f4f4; padding: 20px; border-radius: 5px; text-align: center; margin-bottom: 20px;">
+            <h2 style="font-size: 24px;">Selamat datang di Japemethe, Selamat makan!!</h2>
+            <h2 style="font-size: 24px;">Promo Yang Tersedia!!</h2>
+        </div>
+        
+        <div id="promoContainer"></div>
     </div>
+
+    <script>
+        window.onload = function () {
+            displayPromos();
+        }
+
+        function displayPromos() {
+            var promos = JSON.parse(localStorage.getItem("promos")) || [];
+
+            var promoContainer = document.getElementById("promoContainer");
+
+            promoContainer.innerHTML = "";
+
+            promos.forEach(function (promoText) {
+                var promoElement = document.createElement("div");
+                promoElement.className = "promoItem";
+                promoElement.innerText = promoText;
+                promoContainer.appendChild(promoElement);
+            });
+        }
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,14 +62,26 @@
         .container {
             max-width: 960px;
             margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .promoItem {
+            background-color: #2dce0d;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            font-size: 18px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .promoItem:hover {
+            transform: scale(1.05);
+            background-color: #318102;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
     </style>
 </body>
