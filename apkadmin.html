@@ -1,67 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Rumah Makan</title>
 </head>
-<body>
 
+<body>
     <section>
-        <center><h1>Admin Panel</h1></center>
-        <button type="button" onclick="window.location.href='apk.html'">Edit Menu</button>
-        <button>Edit Promo</button>
-        <button>Lihat Ulasan</button>
-        <button>Kelola Reservasi</button> 
-        <button>Statistik Penjualan</button> 
+        <h1>Admin Panel</h1>
+        <button id="editMenuBtn" onclick="editMenu()">Edit Menu</button>
+        <button id="editPromoBtn" onclick="editPromo()">Edit Promo</button>
+        <button onclick="resetPromo()">Reset Promo</button>
+        <button type="button" onclick="window.location.href='apkulasan.html'">Lihat Ulasan</button>
+        <button type="button" onclick="window.location.href='apklistrsv.html'">Kelola Reservasi</button>
+        <button onclick="showUnderDevelopmentMessage()">Statistik Penjualan</button>
     </section>
 
+    <script>
+        function editPromo() {
+            var promoText = prompt("Masukkan promo baru:");
+            if (promoText !== null && promoText.trim() !== "") {
+                var promos = JSON.parse(localStorage.getItem("promos")) || [];
+                promos.push(promoText);
+
+                localStorage.setItem("promos", JSON.stringify(promos));
+
+                displayPromos();
+            }
+        }
+
+        function resetPromo() {
+            var confirmation = confirm("Apakah Anda yakin ingin mereset promo?");
+
+            if (confirmation) {
+                localStorage.setItem("promos", JSON.stringify([]));
+
+                alert("Promo berhasil di-reset.");
+            }
+        }
+
+        function displayPromos() {
+            var promos = JSON.parse(localStorage.getItem("promos")) || [];
+            var promoContainer = document.getElementById("promoContainer");
+            promoContainer.innerHTML = "";
+
+            promos.forEach(function (promoText) {
+                var promoElement = document.createElement("div");
+                promoElement.className = "promoItem";
+                promoElement.innerText = promoText;
+                promoContainer.appendChild(promoElement);
+            });
+        }
+
+        function editMenu() {
+            showUnderDevelopmentMessage();
+        }
+
+        function showUnderDevelopmentMessage() {
+            alert("Fitur ini dalam tahap pengembangan");
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        section {
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .promoItem {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            font-size: 18px;
+            text-align: center;
+            flex: 0 0 calc(33.33% - 20px);
+        }
+
+        .promoItem:hover {
+            animation: highlight 1s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes highlight {
+            0% {
+                background-color: #3498db;
+            }
+            50% {
+                background-color: #2980b9;
+            }
+            100% {
+                background-color: #3498db;
+            }
+        }
+    </style>
 </body>
-
-<style>
-   body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-section {
-    padding: 20px;
-    border: 2px solid #333;
-    border-radius: 10px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    color: #333;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box; 
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-</style>
 
 </html>
