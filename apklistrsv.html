@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Reservasi</title>
+</head>
+
+<body>
+    <section>
+        <h1>Konfirmasi Reservasi</h1>
+        <div id="confirmationDetails" class="reservation-container">
+
+        </div>
+        <button onclick="clearReservations()">Hapus Semua Reservasi</button>
+    </section>
+
+    <script>
+        var reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+
+        if (reservations.length > 0) {
+            const confirmationDetails = document.getElementById('confirmationDetails');
+
+            for (var i = 0; i < reservations.length; i++) {
+                const boxClass = (i + 1) % 4 === 0 ? 'new-box' : '';
+                const reservationBox = document.createElement('div');
+                reservationBox.className = `reservation-box ${boxClass}`;
+                reservationBox.innerHTML = `
+                    <p><strong>Nama Pelanggan:</strong> ${reservations[i].customerName}</p>
+                    <p><strong>Tanggal Reservasi:</strong> ${reservations[i].reservationDate}</p>
+                    <p><strong>Waktu Reservasi:</strong> ${reservations[i].reservationTime}</p>
+                    <button onclick="removeReservation(${i})">Hapus</button>
+                `;
+                confirmationDetails.appendChild(reservationBox);
+            }
+        } else {
+            alert("Tidak ada data reservasi. Kembali ke formulir reservasi.");
+            backToForm();
+        }
+
+        function backToForm() {
+            window.location.href = 'apkreservasi.html';
+        }
+
+        function removeReservation(index) {
+            reservations.splice(index, 1);
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+            showReservations();
+        }
+
+        function clearReservations() {
+            localStorage.removeItem('reservations');
+            showReservations();
+        }
+
+        function showReservations() {
+            location.reload();
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        section {
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .reservation-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .reservation-box {
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px;
+            width: calc(25% - 30px);
+            box-sizing: border-box;
+            text-align: left;
+            position: relative;
+        }
+
+        .new-box {
+            background-color: #f9f9f9;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        button {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+    </style>
+</body>
+
+</html>

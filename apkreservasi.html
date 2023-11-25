@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Reservasi</title>
+</head>
+
+<body>
+    <section>
+        <h1>Reservasi</h1>
+        <p>Info lebih lanjut hubungi nomor yang tertera di Kontak</p>
+        <form id="reservationForm">
+            <label for="customerName">Nama Pelanggan:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <label for="reservationDate">Tanggal Reservasi:</label>
+            <input type="date" id="reservationDate" name="reservationDate" required>
+
+            <label for="reservationTime">Waktu Reservasi:</label>
+            <input type="time" id="reservationTime" name="reservationTime" required>
+
+            <button type="button" onclick="submitReservation()">Submit Reservasi</button>
+        </form>
+    </section>
+
+    <script>
+        function submitReservation() {
+            var customerName = document.getElementById("customerName").value;
+            var reservationDate = document.getElementById("reservationDate").value;
+            var reservationTime = document.getElementById("reservationTime").value;
+
+            if (customerName.trim() === "" || reservationDate === "" || reservationTime === "") {
+                alert("Harap isi semua field!");
+                return;
+            }
+
+            var existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
+
+            existingReservations.push({
+                customerName: customerName,
+                reservationDate: reservationDate,
+                reservationTime: reservationTime
+            });
+
+            localStorage.setItem('reservations', JSON.stringify(existingReservations));
+
+            alert("Reservasi berhasil disubmit:\n\nNama: " + customerName + "\nTanggal: " + reservationDate + "\nWaktu: " + reservationTime);
+
+            document.getElementById("reservationForm").reset();
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        section {
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</body>
+
+</html>
